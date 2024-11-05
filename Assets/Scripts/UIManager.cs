@@ -13,6 +13,8 @@ public class UIManager : MonoBehaviour
     public Button utenMarketButton;
     public Button npcButton;
     public Button recipeButton;
+    public Image buyOrNotScreen;
+    public Image boughtScreen;
     public ScrollRect utenMarketScroll;
     public ScrollRect utenStorageScroll;
     private bool isInteriorClosed;
@@ -28,6 +30,8 @@ public class UIManager : MonoBehaviour
         CloseInteriorMenu();
         utenMarketScroll.gameObject.SetActive(false); 
         utenStorageScroll.gameObject.SetActive(false);
+        buyOrNotScreen.gameObject.SetActive(false);
+        boughtScreen.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -116,5 +120,27 @@ public class UIManager : MonoBehaviour
     private void CloseUtenStorage()
     {
         utenStorageScroll.gameObject.SetActive(false);
+    }
+
+    public void OnClickPrice()
+    {
+        buyOrNotScreen.gameObject.SetActive(true);
+    }
+
+    public void OnClickYes()
+    {
+        buyOrNotScreen.gameObject.SetActive(false);
+        boughtScreen.gameObject.SetActive(true);
+    }
+
+    public void OnClickNo()
+    {
+        buyOrNotScreen.gameObject.SetActive(false);
+    }
+
+    public void OnClickClose()
+    {
+        boughtScreen.gameObject.SetActive(false);
+        utenMarketScroll.gameObject.SetActive(false);
     }
 }
