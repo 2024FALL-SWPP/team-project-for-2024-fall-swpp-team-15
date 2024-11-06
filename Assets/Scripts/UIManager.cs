@@ -17,9 +17,17 @@ public class UIManager : MonoBehaviour
     public Image boughtScreen;
     public ScrollRect utenMarketScroll;
     public ScrollRect utenStorageScroll;
+    public ScrollRect sushiMarketScroll;
+    public ScrollRect ramenMarketScroll;
+    public ScrollRect tempuraMarketScroll;
+    public ScrollRect steakMarketScroll;
+    public ScrollRect riceMarketScroll;
+    public ScrollRect otherMarketScroll;
     private bool isInteriorClosed;
     private bool isUtenMarketClosed;
     private bool isUtenStorageClosed;
+    private bool isRecipeMarketClosed;
+    public GameObject recipeMarket;
 
     // Start is called before the first frame update
     void Start()
@@ -27,11 +35,13 @@ public class UIManager : MonoBehaviour
         isInteriorClosed = true;
         isUtenMarketClosed = true;
         isUtenStorageClosed = true;
+        isRecipeMarketClosed = true;
         CloseInteriorMenu();
         utenMarketScroll.gameObject.SetActive(false); 
         utenStorageScroll.gameObject.SetActive(false);
         buyOrNotScreen.gameObject.SetActive(false);
         boughtScreen.gameObject.SetActive(false);
+        CloseRecipeMarket();
     }
 
     // Update is called once per frame
@@ -58,6 +68,7 @@ public class UIManager : MonoBehaviour
     {
        if (isUtenMarketClosed)
         {
+            CloseUtenStorage();
             ExpandUtenMarket();
             isUtenMarketClosed = false;
         }
@@ -72,6 +83,7 @@ public class UIManager : MonoBehaviour
     {
        if (isUtenStorageClosed)
         {
+            CloseUtenMarket();
             ExpandUtenStorage();
             isUtenStorageClosed = false;
         }
@@ -142,5 +154,89 @@ public class UIManager : MonoBehaviour
     {
         boughtScreen.gameObject.SetActive(false);
         utenMarketScroll.gameObject.SetActive(false);
+    }
+
+    public void OnClickRecipeMarket()
+    {
+       if (isRecipeMarketClosed)
+        {
+            OpenRecipeMarket();
+            isRecipeMarketClosed = false;
+        }
+        else
+        {
+            CloseRecipeMarket();
+            isRecipeMarketClosed = true;
+        } 
+    }
+
+    public void OpenRecipeMarket()
+    {
+        recipeMarket.SetActive(true);
+        OnClickSushi();
+    }
+
+    public void CloseRecipeMarket()
+    {
+        recipeMarket.SetActive(false);
+    }
+    public void OnClickSushi()
+    {
+        sushiMarketScroll.gameObject.SetActive(true);
+        ramenMarketScroll.gameObject.SetActive(false);
+        tempuraMarketScroll.gameObject.SetActive(false);
+        steakMarketScroll.gameObject.SetActive(false);
+        riceMarketScroll.gameObject.SetActive(false);
+        otherMarketScroll.gameObject.SetActive(false);
+    }
+
+    public void OnClickRamen()
+    {
+        sushiMarketScroll.gameObject.SetActive(false);
+        ramenMarketScroll.gameObject.SetActive(true);
+        tempuraMarketScroll.gameObject.SetActive(false);
+        steakMarketScroll.gameObject.SetActive(false);
+        riceMarketScroll.gameObject.SetActive(false);
+        otherMarketScroll.gameObject.SetActive(false);
+    }
+
+    public void OnClickTempura()
+    {
+        sushiMarketScroll.gameObject.SetActive(false);
+        ramenMarketScroll.gameObject.SetActive(false);
+        tempuraMarketScroll.gameObject.SetActive(true);
+        steakMarketScroll.gameObject.SetActive(false);
+        riceMarketScroll.gameObject.SetActive(false);
+        otherMarketScroll.gameObject.SetActive(false);
+    }
+
+    public void OnClickSteak()
+    {
+        sushiMarketScroll.gameObject.SetActive(false);
+        ramenMarketScroll.gameObject.SetActive(false);
+        tempuraMarketScroll.gameObject.SetActive(false);
+        steakMarketScroll.gameObject.SetActive(true);
+        riceMarketScroll.gameObject.SetActive(false);
+        otherMarketScroll.gameObject.SetActive(false);
+    }
+
+    public void OnClickRice()
+    {
+        sushiMarketScroll.gameObject.SetActive(false);
+        ramenMarketScroll.gameObject.SetActive(false);
+        tempuraMarketScroll.gameObject.SetActive(false);
+        steakMarketScroll.gameObject.SetActive(false);
+        riceMarketScroll.gameObject.SetActive(true);
+        otherMarketScroll.gameObject.SetActive(false);
+    }
+
+    public void OnClickOther()
+    {
+        sushiMarketScroll.gameObject.SetActive(false);
+        ramenMarketScroll.gameObject.SetActive(false);
+        tempuraMarketScroll.gameObject.SetActive(false);
+        steakMarketScroll.gameObject.SetActive(false);
+        riceMarketScroll.gameObject.SetActive(false);
+        otherMarketScroll.gameObject.SetActive(true);
     }
 }
