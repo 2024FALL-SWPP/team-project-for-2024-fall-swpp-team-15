@@ -1,0 +1,3 @@
+class ServerNPC extends NPCBase {
+    
+}
