@@ -1,11 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 
-public class UIManager : MonoBehaviour
+public class Ingredient
 {
+    public int price;
+    public int stock;
+
+    public Ingredient(int price, int stock)
+    {
+
+        this.price = price;
+        this.stock = stock;
+    }
     // Start is called before the first frame update
     void Start()
     {
