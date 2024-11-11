@@ -1,5 +1,5 @@
 namespace Yogaewonsil.Characters {
-    class CookNPC {
+    class CookNPC: NPCBase, ICooker {
         
     }
 }
