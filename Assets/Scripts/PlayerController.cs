@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour, IFoodObjectParent
 
     private FoodObject foodObject;
 
-    private Vector3 lastInteractDir;
+    private Vector3 lastMoveDir;
     private ClearCounter selectedCounter;
 
     private void Awake() {
@@ -60,15 +60,15 @@ public class PlayerController : MonoBehaviour, IFoodObjectParent
 
         Vector3 moveDir = new Vector3(inputVector.x, 0f, inputVector.y);
 
-        if(moveDir != Vector3.zero){
-            lastInteractDir = moveDir;
-        }
+        // 현재 인풋이 없을 경우 가장 최근에 움직였던 방향인 lastMoveDir을 기준으로 상호작용 가능 여부 확인
+        Vector3 interactDir = moveDir == Vector3.zero ? lastMoveDir : moveDir;
+
         Debug.Log("Player Interact");
 
         float interactDistance = 2f;
-        Debug.DrawRay(transform.position, lastInteractDir * interactDistance, Color.red, 0.1f);
+        Debug.DrawRay(transform.position, interactDir * interactDistance, Color.red, 0.1f);
 
-        if(Physics.Raycast(transform.position, lastInteractDir, out RaycastHit raycastHit, interactDistance, utensilsLayerMask)){
+        if(Physics.Raycast(transform.position, interactDir, out RaycastHit raycastHit, interactDistance, utensilsLayerMask)){
             if( raycastHit.transform.TryGetComponent(out ClearCounter clearCounter)) {
                 // Has ClearCounter
                 clearCounter.Interact(this);
@@ -126,6 +126,9 @@ public class PlayerController : MonoBehaviour, IFoodObjectParent
         Vector2 inputVector = gameInput.GetMovementVectorNormalized();
 
         Vector3 moveDir = new Vector3(inputVector.x, 0f, inputVector.y);
+
+        if (moveDir != Vector3.zero)
+            lastMoveDir = moveDir;
 
         float moveDistance = moveSpeed * Time.deltaTime;
         float playerRadius = 0.5f;
