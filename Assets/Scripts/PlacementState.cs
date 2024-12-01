@@ -7,6 +7,7 @@ public class PlacementState : IPlacementState
     private int selectedInteriorIndex = -1;
     int ID;
     Grid grid;
+    PlacementSystem placementSystem;
     PreviewSystem previewSystem;
     InteriorDatabaseSO database;
     GridData floorData;
@@ -28,6 +29,7 @@ public class PlacementState : IPlacementState
         this.floorData = floorData;
         this.interiorData = interiorData;
         this.objectPlacer = objectPlacer;
+        this.placementSystem = GameObject.FindObjectOfType<PlacementSystem>();
 
         selectedInteriorIndex = database.interiorData.FindIndex(data => data.ID == ID);
         if (selectedInteriorIndex > -1)
@@ -47,6 +49,7 @@ public class PlacementState : IPlacementState
 
     public void OnAction(Vector3Int gridPosition)
     {
+        Debug.Log($"Grid Position: {gridPosition}");
         bool placementValidity = CheckPlacementValidity(gridPosition, selectedInteriorIndex);
         if (placementValidity == false)
         {
@@ -59,11 +62,29 @@ public class PlacementState : IPlacementState
         Vector3 cellCenterWorldPosition = grid.GetCellCenterWorld(gridPosition);
         cellCenterWorldPosition.y = 0; // Ensure the y position is set to 0
 
-        int index = objectPlacer.PlaceObject(database.interiorData[selectedInteriorIndex].Prefab, cellCenterWorldPosition, previewRotation);
-
         GridData selectedData = database.interiorData[selectedInteriorIndex].ID == 0 ?
             floorData :
             interiorData;
+        
+        GameObject prefab;
+        if(selectedData == floorData){
+            if(gridPosition.z >= 0)
+            {
+                prefab = placementSystem.kitchenFloorPrefab;
+            }
+            else
+            {
+                prefab = placementSystem.hallFloorPrefab;
+            }
+
+        }
+        else{
+            prefab = database.interiorData[selectedInteriorIndex].Prefab;
+        }
+
+        int index = objectPlacer.PlaceObject(prefab, cellCenterWorldPosition, previewRotation);
+
+        
         selectedData.AddObjectAt(gridPosition,
             database.interiorData[selectedInteriorIndex].Size,
             database.interiorData[selectedInteriorIndex].ID,

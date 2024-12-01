@@ -40,6 +40,9 @@ public class PlacementSystem : MonoBehaviour
     [SerializeField]
     private GameObject wallPrefab;
 
+    public GameObject kitchenFloorPrefab;
+    public GameObject hallFloorPrefab;
+
     private List<GameObject> instantiatedWalls = new List<GameObject>();
 
     private static readonly Vector3Int[] neighborOffsets = new Vector3Int[]
