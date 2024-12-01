@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4418931385219639597}
   - component: {fileID: 3331348339509172889}
   m_Layer: 0
-  m_Name: FloorTile
+  m_Name: KitchenFloor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 17e5ab991b83b4998b757cc879ca5bf0, type: 2}
+  - {fileID: 1568477298387086286, guid: 446a58d0bd78446f2a461dff9eee4932, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
