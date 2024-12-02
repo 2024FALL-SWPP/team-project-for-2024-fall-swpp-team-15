@@ -13,6 +13,8 @@ public class PlacementState : IPlacementState
     GridData floorData;
     GridData interiorData;
     ObjectPlacer objectPlacer;
+    private const int TABLE_ID = 12;
+    private const int CHAIR_ID = 13;
 
     public PlacementState(int iD,
                           Grid grid,
@@ -104,7 +106,22 @@ public class PlacementState : IPlacementState
         {
             if (!floorData.CanPlaceObjectAt(gridPosition, database.interiorData[selectedInteriorIndex].Size)) // floorData에 gridPosition이 있는지 확인하기
             {
-                return selectedData.CanPlaceObjectAt(gridPosition, database.interiorData[selectedInteriorIndex].Size); // interiorData에 gridPosition이 있는지 확인하기
+                if(selectedData.CanPlaceObjectAt(gridPosition, database.interiorData[selectedInteriorIndex].Size)) // interiorData에 gridPosition이 있는지 확인하기
+                {
+                    if(database.interiorData[selectedInteriorIndex].ID == TABLE_ID || 
+                    database.interiorData[selectedInteriorIndex].ID == CHAIR_ID) // 의자 또는 테이블이면
+                    {
+                        return gridPosition.z < 0; // 홀에 만 설치 가능
+                    }
+                    else
+                    {
+                        return gridPosition.z >= 0; // 아니면 주방에만 설치 가능
+                    }
+                } 
+                else
+                {
+                    return false;
+                }
             }
             else
             {
