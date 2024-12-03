@@ -46,8 +46,11 @@ public class IngredientShopManager : MonoBehaviour, IBuyable
 
     // 재료 가져오기 버튼 클릭 시 (냉장고 "열기"버튼과 연동)
     public void OnClickOpenFridge()
-    {
-        fridgeScroll.gameObject.SetActive(true);
+    {   
+        if(fridgeScroll != null)
+        {
+            fridgeScroll.gameObject.SetActive(true);
+        }
     }
 
     // // 냉장고 닫기 버튼 클릭 시 -> 상점을 닫을 시 냉장고가 닫히도록 구현

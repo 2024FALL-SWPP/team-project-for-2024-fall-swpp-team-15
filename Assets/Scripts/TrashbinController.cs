@@ -16,7 +16,7 @@ public class TrashbinController : KitchenInteriorBase
     /// <summary>
     /// 초기화 작업을 수행합니다. 버튼을 설정하고 부모 클래스의 초기화 로직을 호출합니다.
     /// </summary>
-    protected override void Start()
+    internal override void Start()
     { 
         base.Start();
         
@@ -46,7 +46,7 @@ public class TrashbinController : KitchenInteriorBase
     /// 버튼의 활성화/비활성화 상태를 업데이트합니다.
     /// 플레이어가 재료를 들고 있을 때만 버튼이 활성화됩니다.
     /// </summary>
-    protected override void UpdateAllButtons()  // private일지 protected일지 고려 -> 조리대에서 버튼 하나 추가되면 바뀔 수 있을 듯
+    internal override void UpdateAllButtons()  // private일지 protected일지 고려 -> 조리대에서 버튼 하나 추가되면 바뀔 수 있을 듯
     {
         // 현재 플레이어가 들고 있는 재료를 확인
         Food? heldFood = PlayerController.Instance.GetHeldFood();

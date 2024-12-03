@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float moveSpeed = 15.0f;
     [SerializeField] private GameInput gameInput;
     public Food? heldFood = null; // 플레이어가 들고 있는 음식 (Nullable)
-    private bool isMovementEnabled = true; // 플레이어 이동 가능 여부
+    internal bool isMovementEnabled = true; // 플레이어 이동 가능 여부
 
     [Header("Food Database")]
     [SerializeField] private FoodDatabaseSO foodDatabase; // 음식 데이터베이스
@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
 
     private GameObject currentHeldObject; // 플레이어가 현재 들고 있는 프리팹 객체
 
-    private void Awake()
+    internal void Awake()
     {
         if (Instance != null && Instance != this)
         {
@@ -30,7 +30,10 @@ public class PlayerController : MonoBehaviour
         Instance = this;
 
         GameObject gameInputObject = GameObject.Find("GameInput");
-        gameInput = gameInputObject.GetComponent<GameInput>();
+        if (gameInput != null)
+        {
+            gameInput = gameInputObject.GetComponent<GameInput>();
+        }
         DontDestroyOnLoad(gameObject); // 씬 전환 시에도 파괴되지 않도록 설정
         InstantiateFoodPrefab();
     }
@@ -107,7 +110,11 @@ public class PlayerController : MonoBehaviour
     }
 
     private void HandleMovement()
-    {
+    {   
+        if (gameInput == null)
+        {
+            return;
+        }
         Vector2 inputVector = gameInput.GetMovementVectorNormalized();
 
         Vector3 moveDir = new Vector3(inputVector.x, 0f, inputVector.y);

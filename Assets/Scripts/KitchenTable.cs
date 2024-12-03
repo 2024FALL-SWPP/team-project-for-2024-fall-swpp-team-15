@@ -6,15 +6,15 @@ using Yogaewonsil.Common;
 
 public class KitchenTable : TableBase
 {   
-    protected Button removeButton; // 재료를 제거하는 버튼
-    protected Transform visualMenu; // 시각적 메뉴
-    protected Transform iconPanel; // 재료 아이콘 패널
+    internal Button removeButton; // 재료를 제거하는 버튼
+    internal Transform visualMenu; // 시각적 메뉴
+    internal Transform iconPanel; // 재료 아이콘 패널
     [SerializeField] private GameObject framePrefab; // 프레임 프리팹
 
     /// <summary>
     /// 초기화 메서드. 버튼과 패널을 설정합니다.
     /// </summary>
-    protected virtual void Start()
+    internal virtual void Start()
     {   
         base.Start();
 
@@ -52,7 +52,7 @@ public class KitchenTable : TableBase
     /// <summary>
     /// 버튼 활성화 상태를 업데이트합니다.
     /// </summary>
-    protected override void UpdateAllButtons()  // private일지 protected일지 고려 -> 조리대에서 버튼 하나 추가되면 바뀔 수 있을 듯
+    internal override void UpdateAllButtons()  // private일지 protected일지 고려 -> 조리대에서 버튼 하나 추가되면 바뀔 수 있을 듯
     {
         Food? heldFood = PlayerController.Instance.GetHeldFood();
 
@@ -62,7 +62,7 @@ public class KitchenTable : TableBase
         removeButton.interactable = plateFood != null && heldFood == null;
     }
 
-    protected override void PutDish()
+    internal override void PutDish()
     {
         base.PutDish();
         UpdateIngredientIcon();
@@ -102,7 +102,7 @@ public class KitchenTable : TableBase
     /// <summary>
     /// 재료 아이콘을 업데이트합니다.
     /// </summary>
-    protected void UpdateIngredientIcon()
+    internal void UpdateIngredientIcon()
     {
         // 기존 아이콘 제거
         foreach (Transform child in iconPanel)
@@ -112,7 +112,7 @@ public class KitchenTable : TableBase
 
         if (plateFood != null)
         {
-          CreateIngredientIcon((Food)plateFood);
+            CreateIngredientIcon((Food)plateFood);
         }
     }
 

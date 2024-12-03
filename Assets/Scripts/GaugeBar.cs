@@ -94,14 +94,21 @@ public class GaugeBar : MonoBehaviour
     /// <summary>
     /// Update는 매 프레임 호출되며, 게임 모드에 따라 동작을 업데이트합니다.
     /// </summary>
-    void Update()
-    {
-        if (!isGameActive) return;
+    internal void Update()
+    {   
+        Debug.Log($"[GaugeBar] Update called. isGameActive: {isGameActive}");
+        if (!isGameActive)
+        {
+            Debug.Log("[GaugeBar] Update skipped: Game is not active.");
+            return;
+        }
 
         // 카운트다운 시간 갱신
         countdownTimeRemaining -= Time.deltaTime;
+        Debug.Log($"[GaugeBar] Countdown Time Remaining: {countdownTimeRemaining}");
         if (countdownTimeRemaining <= 0)
-        {
+        {   
+            Debug.Log("[GaugeBar] Countdown expired, ending game as failure.");
             EndGame(false); // 시간 초과로 실패
             return;
         }
@@ -152,7 +159,7 @@ public class GaugeBar : MonoBehaviour
     /// 카운트다운 게이지 처리
     /// </summary>
     private void HandleCountdown()
-    {
+    {   
         // 게이지 감소
         currentGauge -= (maxGauge / countdownDuration) * Time.deltaTime;
         currentGauge = Mathf.Clamp(currentGauge, 0, maxGauge);
@@ -254,7 +261,8 @@ public class GaugeBar : MonoBehaviour
     /// 게임 종료 처리
     /// </summary>
     private void EndGame(bool isSuccess)
-    {
+    {   
+        Debug.Log($"[GaugeBar] EndGame called. Success: {isSuccess}");
         isGameActive = false;
         OnGameComplete?.Invoke(isSuccess);
     }
@@ -264,7 +272,8 @@ public class GaugeBar : MonoBehaviour
     /// 게임 시작
     /// </summary>
     public void StartGame(GameMode mode, float duration)
-    {
+    {   
+        Debug.Log($"[GaugeBar] StartGame");
         currentMode = mode;
         isGameActive = true;
         countdownDuration = duration;

@@ -16,7 +16,7 @@ public abstract class HeatBasedStationBase : CookingStationBase
     /// <summary>
     /// 초기화 메서드로, Stop 버튼 및 UI를 설정합니다.
     /// </summary>
-    protected override void Start()
+    internal override void Start()
     {
         base.Start();
 
@@ -75,7 +75,8 @@ public abstract class HeatBasedStationBase : CookingStationBase
     /// </summary>
     /// <param name="isSuccess">미니게임 성공 여부</param>
     private void OnGaugeComplete(bool isSuccess)
-    {
+    {   
+        Debug.Log($"OnGaugeComplete called. Success: {isSuccess}");
         if (!isMiniGameActive) return;
 
         isMiniGameActive = false; // 미니게임 비활성화

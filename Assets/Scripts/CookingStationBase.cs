@@ -22,14 +22,14 @@ public abstract class CookingStationBase : KitchenInteriorBase
     protected Transform selectionPanel; // 재료 선택 패널
     protected Button backButton; // 선택 패널을 닫는 버튼
     protected Transform visualMenu; // 시각적 메뉴
-    protected Transform iconPanel; // 재료 아이콘 패널
-    protected Transform gaugeBarPanel; // 게이지 바 패널
-    protected GaugeBar gaugeBar; // 게이지 바
+    internal Transform iconPanel; // 재료 아이콘 패널
+    internal Transform gaugeBarPanel; // 게이지 바 패널
+    internal GaugeBar gaugeBar; // 게이지 바
 
     [Header("Station State")]
     public List<Food> ingredients = new List<Food>(); // 현재 재료 목록
-    protected bool isCooking = false; // 현재 조리 중인지 여부
-    protected bool isMiniGameActive = false; // 미니게임 활성화 여부
+    internal bool isCooking = false; // 현재 조리 중인지 여부
+    internal bool isMiniGameActive = false; // 미니게임 활성화 여부
 
     [Header("Prefabs")]
     [SerializeField] private GameObject buttonPrefab; // 버튼 프리팹
@@ -41,7 +41,7 @@ public abstract class CookingStationBase : KitchenInteriorBase
     /// <summary>
     /// 초기화 메서드로, 필요한 컴포넌트와 UI 요소를 설정합니다.
     /// </summary>
-    protected override void Start()
+    internal override void Start()
     {   
         base.Start();
 
@@ -140,7 +140,7 @@ public abstract class CookingStationBase : KitchenInteriorBase
     /// <summary>
     /// 버튼의 활성화 상태를 업데이트합니다.
     /// </summary>
-    protected override void UpdateAllButtons()  // private일지 protected일지 고려 -> 조리대에서 버튼 하나 추가되면 바뀔 수 있을 듯
+    internal override void UpdateAllButtons()  // private일지 protected일지 고려 -> 조리대에서 버튼 하나 추가되면 바뀔 수 있을 듯
     {
         if (isCooking)
         {

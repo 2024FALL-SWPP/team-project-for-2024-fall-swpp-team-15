@@ -12,7 +12,7 @@ public class FryerController : HeatBasedStationBase
     /// <summary>
     /// 초기화 메서드로, 튀김기(Fryer)의 고유 설정을 정의합니다.
     /// </summary>
-    protected override void Start()
+    internal override void Start()
     {
         base.Start();
 

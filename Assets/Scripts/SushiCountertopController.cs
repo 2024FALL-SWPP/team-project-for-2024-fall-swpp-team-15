@@ -12,7 +12,7 @@ public class SushiCountertopController : CookingStationBase
     /// <summary>
     /// 초기화 메서드로, 조리대의 기본 설정을 초기화합니다.
     /// </summary>
-    protected override void Start()
+    internal override void Start()
     {
         base.Start();
 

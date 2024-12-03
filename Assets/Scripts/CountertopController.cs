@@ -20,7 +20,7 @@ public class CountertopController : CookingStationBase
     /// <summary>
     /// 초기화 메서드로, 필요한 컴포넌트와 UI 요소를 설정합니다.
     /// </summary>
-    protected override void Start()
+    internal override void Start()
     {
         base.Start();
 
@@ -69,7 +69,7 @@ public class CountertopController : CookingStationBase
     /// <summary>
     /// 버튼 상태를 업데이트합니다.
     /// </summary>
-    protected override void UpdateAllButtons()  // private일지 protected일지 고려 -> 조리대에서 버튼 하나 추가되면 바뀔 수 있을 듯
+    internal override void UpdateAllButtons()  // private일지 protected일지 고려 -> 조리대에서 버튼 하나 추가되면 바뀔 수 있을 듯
     {
         if (isCooking || isChanging)
         {

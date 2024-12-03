@@ -13,9 +13,9 @@ public abstract class KitchenInteriorBase : MonoBehaviour
     public string stationName; // 기구 이름
 
     [Header("UI References")]
-    protected Canvas cookingStationCanvas; // 상호작용 Canvas (자식 객체로 설정)
-    protected Transform interactionMenu; // 상호작용 메뉴
-    protected Transform interactionPanel; // 상호작용 패널
+    internal Canvas cookingStationCanvas; // 상호작용 Canvas (자식 객체로 설정)
+    internal Transform interactionMenu; // 상호작용 메뉴
+    internal Transform interactionPanel; // 상호작용 패널
 
     [Header("activeStation")]
     public static KitchenInteriorBase activeStation; // 현재 활성화된 기구
@@ -28,7 +28,7 @@ public abstract class KitchenInteriorBase : MonoBehaviour
     /// <summary>
     /// 기구 초기화. UI 요소를 설정하고 초기 상태를 설정합니다.
     /// </summary>
-    protected virtual void Start()
+    internal virtual void Start()
     {
         // CookingStationCanvas를 찾습니다.
         cookingStationCanvas = transform.Find("CookingStationCanvas").GetComponent<Canvas>();
@@ -75,7 +75,8 @@ public abstract class KitchenInteriorBase : MonoBehaviour
     /// 매 프레임마다 상호작용 메뉴를 처리하고 버튼 상태를 업데이트합니다.
     /// </summary>
     protected virtual void Update()
-    {
+    {   
+        if (this == null || gameObject == null) return; // null 체크 추가
         HandleInteractionMenu();
         UpdateAllButtons();
     }
@@ -84,7 +85,7 @@ public abstract class KitchenInteriorBase : MonoBehaviour
     /// 버튼 상태를 업데이트합니다.
     /// 이 메서드는 상속받은 클래스에서 구현됩니다.
     /// </summary>
-    protected virtual void UpdateAllButtons()
+    internal virtual void UpdateAllButtons()
     {
     }
 
@@ -97,7 +98,7 @@ public abstract class KitchenInteriorBase : MonoBehaviour
 
         KitchenInteriorBase closestStation = GetClosestStation();
 
-        if (closestStation == null) 
+        if (closestStation == null && activeStation != null) 
         {   
             activeStation.HideMenu();
             activeStation = null;
@@ -152,7 +153,8 @@ public abstract class KitchenInteriorBase : MonoBehaviour
         Vector3 playerPosition = PlayerController.Instance.transform.position;
 
         foreach (var station in allStations)
-        {
+        {   
+            if (station == null || station.gameObject == null) continue; // null 체크 추가
             float distance = Vector3.Distance(playerPosition, station.transform.position);
 
             if (distance < 3f && distance < closestDistance) // 3f 이내에서 가장 가까운 조리기구 찾기
@@ -168,7 +170,7 @@ public abstract class KitchenInteriorBase : MonoBehaviour
     /// <summary>
     /// 상호작용 메뉴를 활성화합니다.
     /// </summary>
-    private void ShowMenu()
+    protected virtual void ShowMenu()
     {
         if (cookingStationCanvas != null && interactionMenu != null)
         {

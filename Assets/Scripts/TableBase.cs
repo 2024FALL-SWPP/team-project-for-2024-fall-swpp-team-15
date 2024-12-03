@@ -8,11 +8,11 @@ public abstract class TableBase : KitchenInteriorBase
 {   
     [SerializeField] private Transform platePoint; // 객체를 붙일 위치
     public Food? plateFood = null; 
-    protected Button putButton;
-    protected GameObject currentPlateObject; // 테이블이 현재 들고 있는 프리팹 객체
+    internal Button putButton;
+    internal GameObject currentPlateObject; // 테이블이 현재 들고 있는 프리팹 객체
 
     // Start is called before the first frame update
-    protected override void Start()
+    internal override void Start()
     {
         base.Start();
 
@@ -26,7 +26,7 @@ public abstract class TableBase : KitchenInteriorBase
         putButton.onClick.AddListener(PutDish); //putButton에 putDish()함수 연결
     }
 
-    protected virtual void PutDish()
+    internal virtual void PutDish()
     {
         if (PlayerController.Instance != null && PlayerController.Instance.heldFood != null)
         {

@@ -37,7 +37,7 @@ public class FridgeController : KitchenInteriorBase
     /// <summary>
     /// 초기화 작업을 수행합니다. 버튼과 애니메이터를 설정하고 부모 클래스의 초기화 로직을 호출합니다.
     /// </summary>
-    protected override void Start()
+    internal override void Start()
     {
         base.Start();
 
@@ -61,11 +61,12 @@ public class FridgeController : KitchenInteriorBase
     /// <summary>
     /// 재료 상점 UI를 열고 냉장고 애니메이션을 실행합니다.
     /// </summary>
-    private void OpenIngredientShop()
+    internal void OpenIngredientShop()
     {
         IngredientShopManager.Instance.OnClickOpenFridge(); // 재료상점UI를 열기(제어권이 넘어감)
 
         PlayerController.Instance.SetMovementEnabled(false); // 재료상점이 열려있는동안 플레이어는 움직일 수 없읍
+        Debug.Log(PlayerController.Instance.isMovementEnabled);
 
         animator.SetBool("isOpen", true); // 냉장고 열림 애니메이션 실행
         isOpen = true; // 냉장고 상태를 열림으로 변경
@@ -74,7 +75,7 @@ public class FridgeController : KitchenInteriorBase
     /// <summary>
     /// 버튼 상태를 업데이트합니다. 냉장고가 열려 있으면 버튼을 비활성화합니다.
     /// </summary>
-    protected override void UpdateAllButtons()
+    internal override void UpdateAllButtons()
     {   
         Food? heldFood = PlayerController.Instance.GetHeldFood();
         openButton.interactable = heldFood == null && !isOpen; // 냉장고가 열려 있거나 플레이어가 손에 음식이 있다면 버튼 비활성화
