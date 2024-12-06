@@ -46,6 +46,9 @@ public class PlacementSystem : MonoBehaviour
 
     private List<GameObject> instantiatedWalls = new List<GameObject>();
 
+    [SerializeField]
+    private Vector3Int doorPosition;
+
     private string dataPath = "Assets/States";
 
     private static readonly Vector3Int[] neighborOffsets = new Vector3Int[]
@@ -69,7 +72,7 @@ public class PlacementSystem : MonoBehaviour
         floorData = DataManager.LoadGridData(floorDataPath);
         interiorData = DataManager.LoadGridData(interiorDataPath);
 
-        foreach (var kvp in floorData.placedObjects)
+        foreach (var kvp in floorData.placedObjects) // 바닥 타일 배치
         {
             Vector3 cellCenterWorldPosition = grid.GetCellCenterWorld(kvp.Key);
             cellCenterWorldPosition.y = 0; // Ensure the y position is set to 0
@@ -88,7 +91,7 @@ public class PlacementSystem : MonoBehaviour
             objectPlacer.PlaceObject(prefab, cellCenterWorldPosition, kvp.Value.rotation);
         }
 
-        foreach (var kvp in interiorData.placedObjects)
+        foreach (var kvp in interiorData.placedObjects) // 인테리어 배치
         {
             Vector3 cellCenterWorldPosition = grid.GetCellCenterWorld(kvp.Key);
             cellCenterWorldPosition.y = 0; // Ensure the y position is set to 0
@@ -99,6 +102,8 @@ public class PlacementSystem : MonoBehaviour
         //interiorData = new();
         StopPlacement();
         gridVisualization.SetActive(false);
+
+        interiorData.AddObjectAt(doorPosition, new Vector2Int(1, 1), 14, -1, Quaternion.identity); // 문 추가
     }
 
     public void SaveGame()
@@ -234,6 +239,10 @@ public class PlacementSystem : MonoBehaviour
     {
         foreach (var tile in floorData.GetAllOccupiedTiles())
         {
+            if(tile == doorPosition)
+            {
+                continue;
+            }
             foreach (var offset in neighborOffsets)
             {
                 if (!HasNeighbor(tile, offset))
