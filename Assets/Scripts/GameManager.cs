@@ -64,7 +64,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public int reputationValue;
     public GameObject playerPrefab;
-    [SerializeField] private Vector3 playerSpawnPoint = new Vector3(0,1,0);
+    [SerializeField] private Vector3 playerSpawnPoint = new Vector3(0,1,-20);
     private GameObject player;
     public RecipeUI recipeUI;
 
@@ -85,7 +85,7 @@ public class GameManager : MonoBehaviour
     {
         money = 0;
         reputation = 1;
-        reputationValue = 0; 
+        reputationValue = 0;
     }
 
     // Update is called once per frame
@@ -106,6 +106,7 @@ public class GameManager : MonoBehaviour
         openRestaurantButton.gameObject.SetActive(true);
         //인테리어 버튼 활성화
         interiorUI.MakeInteriorButtonVisible();
+        placementSystem.ResetGame();
         placementSystem.LoadGame();
     }
 
@@ -163,6 +164,7 @@ public class GameManager : MonoBehaviour
     public void AddReputation(int points)
     {
         reputationValue += points;
+        Debug.Log($"Reputation value increased: {reputationValue}");
 
         while (reputationValue >= 100)
         {
