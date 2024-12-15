@@ -64544,8 +64544,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1314317260}
-        m_TargetAssemblyTypeName: InteriorUI, Assembly-CSharp
-        m_MethodName: OnClickNo
+        m_TargetAssemblyTypeName: InteriorUI, Yogaewonsil
+        m_MethodName: OnClickFloorNo
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
